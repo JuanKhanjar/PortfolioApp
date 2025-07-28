@@ -1,0 +1,302 @@
+@page
+@model DashboardModel
+@{
+    ViewData["Title"] = "Admin Dashboard";
+}
+
+<div class="admin-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-8">
+                <h1 class="display-6 mb-0">
+                    <i class="fas fa-tachometer-alt me-3"></i>Admin Dashboard
+                </h1>
+                <p class="lead mb-0 opacity-75">Manage your portfolio content</p>
+            </div>
+            <div class="col-md-4 text-end">
+                <div class="text-white">
+                    <small>Last updated: @DateTime.Now.ToString("MMM dd, yyyy HH:mm")</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Statistics Cards -->
+    <div class="row mb-5">
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="stats-card text-center">
+                <div class="stats-icon mb-3">
+                    <i class="fas fa-folder-open fa-3x text-primary"></i>
+                </div>
+                <div class="stats-number">@Model.TotalProjects</div>
+                <div class="stats-label text-muted">Total Projects</div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="stats-card text-center">
+                <div class="stats-icon mb-3">
+                    <i class="fas fa-images fa-3x text-success"></i>
+                </div>
+                <div class="stats-number">@Model.TotalImages</div>
+                <div class="stats-label text-muted">Images Uploaded</div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="stats-card text-center">
+                <div class="stats-icon mb-3">
+                    <i class="fas fa-video fa-3x text-info"></i>
+                </div>
+                <div class="stats-number">@Model.TotalVideos</div>
+                <div class="stats-label text-muted">Videos Uploaded</div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="stats-card text-center">
+                <div class="stats-icon mb-3">
+                    <i class="fas fa-envelope fa-3x text-warning"></i>
+                </div>
+                <div class="stats-number">@Model.UnreadMessages</div>
+                <div class="stats-label text-muted">Unread Messages</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="row mb-5">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-bolt me-2"></i>Quick Actions
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <a asp-page="/Admin/Projects/Create" class="btn btn-primary w-100">
+                                <i class="fas fa-plus me-2"></i>Add New Project
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <a asp-page="/Admin/Profile/Edit" class="btn btn-outline-primary w-100">
+                                <i class="fas fa-user-edit me-2"></i>Edit Profile
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <a asp-page="/Admin/Messages/Index" class="btn btn-outline-warning w-100">
+                                <i class="fas fa-envelope me-2"></i>View Messages
+                                @if (Model.UnreadMessages > 0)
+                                {
+                                    <span class="badge bg-danger ms-2">@Model.UnreadMessages</span>
+                                }
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-6 mb-3">
+                            <a asp-page="/Admin/Media/Upload" class="btn btn-outline-success w-100">
+                                <i class="fas fa-upload me-2"></i>Upload Media
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Projects -->
+    <div class="row mb-5">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-folder-open me-2"></i>Recent Projects
+                    </h5>
+                    <a asp-page="/Admin/Projects/Index" class="btn btn-sm btn-outline-primary">
+                        View All
+                    </a>
+                </div>
+                <div class="card-body">
+                    @if (Model.RecentProjects?.Any() == true)
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Title</th>
+                                        <th>Status</th>
+                                        <th>Last Updated</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var project in Model.RecentProjects.Take(5))
+                                    {
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    @if (project.Images?.Any() == true)
+                                                    {
+                                                        <img src="@* @project.Images.First().ThumbnailUrl *@" alt="@project.Title" 
+                                                             class="rounded me-3" style="width: 40px; height: 40px; object-fit: cover;">
+                                                    }
+                                                    else
+                                                    {
+                                                        <div class="bg-light rounded me-3 d-flex align-items-center justify-content-center" 
+                                                             style="width: 40px; height: 40px;">
+                                                            <i class="fas fa-code text-muted"></i>
+                                                        </div>
+                                                    }
+                                                    <div>
+                                                        <div class="fw-semibold">@project.Title</div>
+                                                        <small class="text-muted">@project.Description </small>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                @if (project.EndDate.HasValue)
+                                                {
+                                                    <span class="badge bg-success">Completed</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-primary">In Progress</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <small class="text-muted">@project.UpdatedAt.ToString("MMM dd, yyyy")</small>
+                                            </td>
+                                            <td>
+                                                <div class="btn-group btn-group-sm">
+                                                    <a asp-page="/Admin/Projects/Edit" asp-route-id="@project.Id" 
+                                                       class="btn btn-outline-primary">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <a asp-page="/Projects/Details" asp-route-id="@project.Id" 
+                                                       class="btn btn-outline-secondary" target="_blank">
+                                                        <i class="fas fa-eye"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-4">
+                            <i class="fas fa-folder-open fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">No projects yet. Create your first project!</p>
+                            <a asp-page="/Admin/Projects/Create" class="btn btn-primary">
+                                <i class="fas fa-plus me-2"></i>Add New Project
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recent Messages -->
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-envelope me-2"></i>Recent Messages
+                    </h5>
+                    <a asp-page="/Admin/Messages/Index" class="btn btn-sm btn-outline-primary">
+                        View All
+                    </a>
+                </div>
+                <div class="card-body">
+                    @if (Model.RecentMessages?.Any() == true)
+                    {
+                        @foreach (var message in Model.RecentMessages.Take(5))
+                        {
+                            <div class="d-flex align-items-start mb-3 @(message.IsRead ? "" : "border-start border-primary border-3 ps-3")">
+                                <div class="flex-grow-1">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <h6 class="mb-1">@message.SenderName</h6>
+                                        <small class="text-muted">@message.RelativeTime</small>
+                                    </div>
+                                    <p class="mb-1 small">@message.Subject</p>
+                                    <p class="mb-0 small text-muted">@message.MessagePreview</p>
+                                </div>
+                            </div>
+                            @if (!message.Equals(Model.RecentMessages.Take(5).Last()))
+                            {
+                                <hr class="my-2">
+                            }
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-center py-3">
+                            <i class="fas fa-envelope fa-2x text-muted mb-2"></i>
+                            <p class="text-muted small mb-0">No messages yet</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Information -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-info-circle me-2"></i>System Information
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <dl class="row">
+                                <dt class="col-sm-6">Application Version:</dt>
+                                <dd class="col-sm-6">1.0.0</dd>
+                                <dt class="col-sm-6">Database:</dt>
+                                <dd class="col-sm-6">SQLite</dd>
+                                <dt class="col-sm-6">Framework:</dt>
+                                <dd class="col-sm-6">ASP.NET Core 8.0</dd>
+                            </dl>
+                        </div>
+                        <div class="col-md-6">
+                            <dl class="row">
+                                <dt class="col-sm-6">Total Storage:</dt>
+                                <dd class="col-sm-6">@Model.TotalStorageUsed</dd>
+                                <dt class="col-sm-6">Last Backup:</dt>
+                                <dd class="col-sm-6">Not configured</dd>
+                                <dt class="col-sm-6">Uptime:</dt>
+                                <dd class="col-sm-6">@Model.ApplicationUptime</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Auto-refresh dashboard every 5 minutes
+        setTimeout(function() {
+            location.reload();
+        }, 300000);
+
+        // Add some interactivity to stats cards
+        document.querySelectorAll('.stats-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+}
+

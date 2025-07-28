@@ -1,0 +1,163 @@
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="hero-section">
+    <div class="row align-items-center min-vh-75">
+        <div class="col-lg-6">
+            <div class="hero-content">
+                <h1 class="display-4 fw-bold mb-4">
+                    Hi, I'm <span class="text-primary">@Model.User?.FirstName @Model.User?.LastName</span>
+                </h1>
+                <p class="lead mb-4">@Model.User?.Bio</p>
+                <div class="hero-buttons">
+                    <a asp-page="/Projects/Index" class="btn btn-primary btn-lg me-3">
+                        <i class="fas fa-folder-open me-2"></i>View My Work
+                    </a>
+                    <a asp-page="/Contact" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-envelope me-2"></i>Get In Touch
+                    </a>
+                </div>
+                @if (!string.IsNullOrEmpty(Model.User?.ResumeUrl))
+                {
+                    <div class="mt-4">
+                        <a href="@Model.User.ResumeUrl" target="_blank" class="btn btn-outline-secondary">
+                            <i class="fas fa-download me-2"></i>Download Resume
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="hero-image text-center">
+                @if (!string.IsNullOrEmpty(Model.User?.ProfilePictureUrl))
+                {
+                    <img src="@Model.User.ProfilePictureUrl" alt="Profile Picture" class="img-fluid rounded-circle profile-image">
+                }
+                else
+                {
+                    <div class="profile-placeholder">
+                        <i class="fas fa-user fa-5x text-muted"></i>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.FeaturedProjects?.Any() == true)
+{
+    <section class="featured-projects py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Featured Projects</h2>
+            <div class="row">
+                @foreach (var project in Model.FeaturedProjects.Take(3))
+                {
+                    <div class="col-md-4 mb-4">
+                        <div class="card project-card h-100">
+                            @if (project.Images?.Any() == true)
+                            {
+                                <img src="@project.Images.First().Url" class="card-img-top" alt="@project.Title">
+                            }
+                            else
+                            {
+                                <div class="card-img-top project-placeholder d-flex align-items-center justify-content-center">
+                                    <i class="fas fa-code fa-3x text-muted"></i>
+                                </div>
+                            }
+                            <div class="card-body">
+                                <h5 class="card-title">@project.Title</h5>
+                                <p class="card-text">@project.Description </p>
+                                @if (!string.IsNullOrEmpty(project.TechnologiesUsed))
+                                {
+                                    <div class="technologies mb-3">
+                                        @foreach (var tech in project.TechnologiesUsed.Split(',').Take(3))
+                                        {
+                                            <span class="badge bg-secondary me-1">@tech.Trim()</span>
+                                        }
+                                    </div>
+                                }
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <a asp-page="/Projects/Details" asp-route-id="@project.Id" class="btn btn-primary btn-sm">
+                                    <i class="fas fa-eye me-1"></i>View Details
+                                </a>
+                                @if (!string.IsNullOrEmpty(project.ProjectUrl))
+                                {
+                                    <a href="@project.ProjectUrl" target="_blank" class="btn btn-outline-primary btn-sm">
+                                        <i class="fas fa-external-link-alt me-1"></i>Live Demo
+                                    </a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="text-center mt-4">
+                <a asp-page="/Projects/Index" class="btn btn-outline-primary">
+                    <i class="fas fa-arrow-right me-2"></i>View All Projects
+                </a>
+            </div>
+        </div>
+    </section>
+}
+
+<section class="skills-section py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">Skills & Technologies</h2>
+        @if (Model.Technologies?.Any() == true)
+        {
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="skills-cloud text-center">
+                        @foreach (var tech in Model.Technologies.Take(20))
+                        {
+                            <span class="skill-tag">@tech</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="text-center">
+                <p class="text-muted">No technologies listed yet.</p>
+            </div>
+        }
+    </div>
+</section>
+
+@if (Model.RecentProjects?.Any() == true)
+{
+    <section class="recent-projects py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Recent Work</h2>
+            <div class="row">
+                @foreach (var project in Model.RecentProjects.Take(6))
+                {
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card project-card-small h-100">
+                            <div class="card-body">
+                                <h6 class="card-title">@project.Title</h6>
+                                <p class="card-text small text-muted"> @project.Description</p>
+                                <small class="text-muted">
+                                    @if (project.EndDate.HasValue)
+                                    {
+                                        @project.EndDate.Value.ToString("MMM yyyy")
+                                    }
+                                    else if (project.StartDate.HasValue)
+                                    {
+                                        @project.StartDate.Value.ToString("MMM yyyy") <text> - Present</text>
+                                    }
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+}
+
