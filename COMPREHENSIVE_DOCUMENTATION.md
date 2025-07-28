@@ -1,6 +1,6 @@
 # Portfolio Application: Comprehensive Code Documentation and Architecture Guide
 
-**Author:** Manus AI  
+**Author:** Juan Khanjar 
 **Date:** January 27, 2025  
 **Version:** 1.0.0  
 **Framework:** ASP.NET Core 8.0 with Clean Architecture
