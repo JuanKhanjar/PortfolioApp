@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36301.6 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioApp.Domain", "..\..\FamilyTaskProject\PortfolioApp_Complete\PortfolioApp\src\PortfolioApp.Domain\PortfolioApp.Domain.csproj", "{AD89C785-DFA1-398A-6C3F-AFBD5204D956}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioApp.Application", "..\..\FamilyTaskProject\PortfolioApp_Complete\PortfolioApp\src\PortfolioApp.Application\PortfolioApp.Application.csproj", "{44D1BB98-4076-B7A9-BB11-18B3F3400DDA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioApp.Infrastructure", "..\..\FamilyTaskProject\PortfolioApp_Complete\PortfolioApp\src\PortfolioApp.Infrastructure\PortfolioApp.Infrastructure.csproj", "{BFA72363-F036-92CC-2E42-C6972C9B494B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PortfolioApp.Web", "..\..\FamilyTaskProject\PortfolioApp_Complete\PortfolioApp\src\PortfolioApp.Web\PortfolioApp.Web.csproj", "{13434ECF-69FB-A8AD-1B30-97EEEADA3180}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AD89C785-DFA1-398A-6C3F-AFBD5204D956}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD89C785-DFA1-398A-6C3F-AFBD5204D956}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD89C785-DFA1-398A-6C3F-AFBD5204D956}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD89C785-DFA1-398A-6C3F-AFBD5204D956}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44D1BB98-4076-B7A9-BB11-18B3F3400DDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44D1BB98-4076-B7A9-BB11-18B3F3400DDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44D1BB98-4076-B7A9-BB11-18B3F3400DDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44D1BB98-4076-B7A9-BB11-18B3F3400DDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFA72363-F036-92CC-2E42-C6972C9B494B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFA72363-F036-92CC-2E42-C6972C9B494B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFA72363-F036-92CC-2E42-C6972C9B494B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFA72363-F036-92CC-2E42-C6972C9B494B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13434ECF-69FB-A8AD-1B30-97EEEADA3180}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13434ECF-69FB-A8AD-1B30-97EEEADA3180}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13434ECF-69FB-A8AD-1B30-97EEEADA3180}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13434ECF-69FB-A8AD-1B30-97EEEADA3180}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{AD89C785-DFA1-398A-6C3F-AFBD5204D956} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{44D1BB98-4076-B7A9-BB11-18B3F3400DDA} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{BFA72363-F036-92CC-2E42-C6972C9B494B} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{13434ECF-69FB-A8AD-1B30-97EEEADA3180} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8AA9A129-CBB2-4C64-849B-243CC1ED970C}
+	EndGlobalSection
+EndGlobal
